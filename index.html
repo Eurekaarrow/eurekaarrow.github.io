@@ -279,7 +279,48 @@
       text-decoration: none;
       word-break: break-all;
     }
-
+    
+    /* Education & Experience 模块样式 */
+    .resume-item {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+    .resume-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .resume-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+      flex-wrap: wrap; /* 适配窄屏移动端 */
+      gap: 4px;
+    }
+    .resume-title {
+      font-weight: 600;
+      font-size: 15px;
+      color: #1f2937;
+    }
+    .resume-date {
+      font-size: 14px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .resume-subtitle {
+      font-size: 14px;
+      color: #374151;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .resume-desc {
+      font-size: 14px;
+      color: #4b5563;
+      line-height: 1.5;
+    }
+  
     /* 平板和桌面端的优化 */
     @media (min-width: 768px) {
       body {
@@ -551,6 +592,67 @@
             </div>
         </div> -->
 
+        <div class="card education" aria-labelledby="education-heading">
+          <h2 id="education-heading">Education</h2>
+          
+          <div class="resume-item">
+            <div class="resume-header">
+              <div class="resume-title">Northwestern University</div>
+              <div class="resume-date">Expected Dec 2026</div>
+            </div>
+            <div class="resume-subtitle">Master of Science in Artificial Intelligence</div>
+            <div class="resume-desc">Evanston, IL, United States</div>
+          </div>
+  
+          <div class="resume-item">
+            <div class="resume-header">
+              <div class="resume-title">Hong Kong Baptist University</div>
+              <div class="resume-date">Graduation Year</div>
+            </div>
+            <div class="resume-subtitle">Bachelor of Science in Computer Science and Technology</div>
+            <div class="resume-desc">Zhuhai, China</div>
+          </div>
+  
+          <div class="resume-item">
+            <div class="resume-header">
+              <div class="resume-title">University of Oxford</div>
+              <div class="resume-date">Summer Year</div>
+            </div>
+            <div class="resume-subtitle">Summer Visiting Student in Artificial Intelligence and Machine Learning</div>
+            <div class="resume-desc">Advised by <a href="https://www.robots.ox.ac.uk/~twgr/">Prof. Tom Rainforth</a></div>
+          </div>
+        </div>
+  
+        <div class="card experience" aria-labelledby="experience-heading">
+          <h2 id="experience-heading">Research Experience</h2>
+  
+          <div class="resume-item">
+            <div class="resume-header">
+              <div class="resume-title">Machine Learning and Language Lab (MLL Lab), Northwestern University</div>
+              <div class="resume-date">Sep 2025 – Present</div>
+            </div>
+            <div class="resume-subtitle">Research Intern</div>
+            <div class="resume-desc">Advised by <a href="https://limanling.github.io/">Prof. Manling Li</a>.</div>
+          </div>
+  
+          <div class="resume-item">
+            <div class="resume-header">
+              <div class="resume-title">Institute for AI Industry Research (AIR), Tsinghua University</div>
+              <div class="resume-date">Jan 2026</div>
+            </div>
+            <div class="resume-subtitle">Research Intern</div>
+            <div class="resume-desc">Advised by <a href="https://air.tsinghua.edu.cn/en/info/1046/1621.htm">Prof. Yilun Chen</a>.</div>
+          </div>
+  
+          <div class="resume-item">
+            <div class="resume-header">
+              <div class="resume-title">Multimedia Laboratory (MMLab), SIAT, CAS</div>
+              <div class="resume-date">Jan 2024 – Jan 2025</div>
+            </div>
+            <div class="resume-subtitle">Research Intern</div>
+            <div class="resume-desc">XPixel Group. Advised by <a href="https://scholar.google.com/citations?user=OSDCB0UAAAAJ&hl">Prof. Chao Dong</a>. Collaborated closely with Dr. Shihao Zou.</div>
+          </div>
+        </div>
         
         <div class="construction" role="status" aria-live="polite">
           <div class="dot">🚧</div>
