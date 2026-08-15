@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Blog — Yuchen Guo</title>
+<meta name="description" content="Notes on perception, memory, and what systems learn from experience." />
+<meta name="theme-color" content="#ffffff" />
+<link rel="icon" type="image/jpeg" href="cat.jpg" />
+<link rel="apple-touch-icon" href="cat.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+</head>
+
+<body>
+<div class="field" aria-hidden="true"><img src="field.svg" alt="" /></div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="page">
+
+  <header class="masthead rise">
+    <div class="portrait"><img src="photo.png" alt="Yuchen Guo" /></div>
+    <div>
+      <h1 class="name">Yuchen Guo</h1>
+      <p class="affil">
+        MS in Artificial Intelligence<br />
+        <span class="school">Northwestern University</span>
+      </p>
+      <nav class="contact">
+        <a href="index.html">Home</a>
+        <a href="mailto:yuchenguo2027@u.northwestern.edu">Email</a>
+        <a href="#">Google Scholar</a>
+        <a href="#">CV</a>
+        <a href="#">GitHub</a>
+        <a href="blog.html" aria-current="page">Blog</a>
+        <a href="photos.html">Photos</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="band band--open rise rise-2">
+    <div class="band-label">Writing</div>
+    <div class="band-body">
+
+      <p class="statement">
+        Longer notes on the questions behind the papers — the ones that do not fit into a related
+        work section.
+      </p>
+
+      <div class="post-list" style="margin-top:34px">
+
+        <!-- ── copy this block for each new post ──────────────────────────
+        <a class="post" href="posts/your-post.html">
+          <div class="post-date">Month DD, YYYY</div>
+          <div class="post-title">Title of the post <span class="post-arrow">&rarr;</span></div>
+          <p class="post-excerpt">One or two sentences that state the question, not the conclusion.</p>
+        </a>
+        ─────────────────────────────────────────────────────────────── -->
+
+        <a class="post" href="posts/example.html">
+          <div class="post-date">Draft</div>
+          <div class="post-title">
+            Thinking Without Language
+            <span class="post-arrow">&rarr;</span>
+          </div>
+          <p class="post-excerpt">
+            If language is a label attached to thought rather than the substance of it, what would
+            it take for a model to reason before the words arrive?
+          </p>
+        </a>
+
+      </div>
+
+      <p class="empty">More coming.</p>
+
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>© <span id="y"></span> Yuchen Guo</span>
+    <span>Evanston, Illinois</span>
+  </footer>
+
+</div>
+
+<script>
+var yEl = document.getElementById('y');
+if (yEl) yEl.textContent = new Date().getFullYear();
+
+(function(){
+  var img = document.querySelector('.field img');
+  if (!img) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!window.matchMedia('(hover: hover)').matches) return;
+  var tx=0, ty=0, cx=0, cy=0, running=false;
+  addEventListener('pointermove', function(e){
+    tx = (e.clientX / innerWidth  - 0.5) * 72;
+    ty = (e.clientY / innerHeight - 0.5) * 56;
+    if (!running){ running = true; requestAnimationFrame(step); }
+  }, {passive:true});
+  function step(){
+    cx += (tx-cx)*0.022; cy += (ty-cy)*0.022;
+    img.style.transform = 'translate(' + cx.toFixed(2) + 'px, calc(-50% + ' + cy.toFixed(2) + 'px))';
+    if (Math.abs(tx-cx)>0.15 || Math.abs(ty-cy)>0.15) requestAnimationFrame(step);
+    else running = false;
+  }
+})();
+</script>
+</body>
+</html>

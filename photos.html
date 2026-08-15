@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Photos — Yuchen Guo</title>
+<meta name="description" content="Hiking, travel, and photographs." />
+<meta name="theme-color" content="#ffffff" />
+<link rel="icon" type="image/jpeg" href="cat.jpg" />
+<link rel="apple-touch-icon" href="cat.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="site.css" />
+</head>
+
+<body>
+<div class="field" aria-hidden="true"><img src="field.svg" alt="" /></div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="page">
+
+  <header class="masthead rise">
+    <div class="portrait"><img src="photo.png" alt="Yuchen Guo" /></div>
+    <div>
+      <h1 class="name">Yuchen Guo</h1>
+      <p class="affil">
+        MS in Artificial Intelligence<br />
+        <span class="school">Northwestern University</span>
+      </p>
+      <nav class="contact">
+        <a href="index.html">Home</a>
+        <a href="mailto:yuchenguo2027@u.northwestern.edu">Email</a>
+        <a href="#">Google Scholar</a>
+        <a href="#">CV</a>
+        <a href="#">GitHub</a>
+        <a href="blog.html">Blog</a>
+        <a href="photos.html" aria-current="page">Photos</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="band band--open rise rise-2">
+    <div class="band-label">Elsewhere</div>
+    <div class="band-body">
+      <p class="statement">
+        I hike, travel, and take photographs. A record of where the camera has been.
+      </p>
+
+      <div id="map" style="margin-top:30px"></div>
+      <p class="map-note"><span id="pin-count">0</span> places · click a marker</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="band-label">Photographs</div>
+    <div class="band-body">
+      <div class="gallery">
+
+        <!-- ── replace src / caption; add or remove <figure> blocks freely ── -->
+        <figure class="shot">
+          <img src="photos/01.jpg" alt="" loading="lazy" />
+          <figcaption>Place · Year</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="photos/02.jpg" alt="" loading="lazy" />
+          <figcaption>Place · Year</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="photos/03.jpg" alt="" loading="lazy" />
+          <figcaption>Place · Year</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="photos/04.jpg" alt="" loading="lazy" />
+          <figcaption>Place · Year</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="photos/05.jpg" alt="" loading="lazy" />
+          <figcaption>Place · Year</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="photos/06.jpg" alt="" loading="lazy" />
+          <figcaption>Place · Year</figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>© <span id="y"></span> Yuchen Guo</span>
+    <span>Evanston, Illinois</span>
+  </footer>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+var yEl = document.getElementById('y');
+if (yEl) yEl.textContent = new Date().getFullYear();
+
+/* ── EDIT ME ── one line per place. [lat, lng, name, note] ─────────── */
+var PLACES = [
+  [42.0451,  -87.6877, "Evanston",   "Northwestern"],
+  [22.2783,  114.1747, "Hong Kong",  ""],
+  [22.2710,  113.5767, "Zhuhai",     "UIC"],
+  [22.5931,  113.9761, "Shenzhen",   "SIAT"],
+  [40.0000,  116.3264, "Beijing",    "Tsinghua AIR"],
+  [51.7548,   -1.2544, "Oxford",     "Summer visit"],
+  [47.4979,   19.0402, "Budapest",   "EMNLP 2026"]
+];
+/* ──────────────────────────────────────────────────────────────────── */
+
+var map = L.map('map', { scrollWheelZoom:false, zoomControl:true, attributionControl:true })
+           .setView([30, 40], 2);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+  attribution:'&copy; OpenStreetMap &copy; CARTO',
+  subdomains:'abcd', maxZoom:18
+}).addTo(map);
+
+var bounds = [];
+PLACES.forEach(function(p){
+  var m = L.circleMarker([p[0], p[1]], {
+    radius:5, color:'#4e2a84', weight:1.5,
+    fillColor:'#7b5aa6', fillOpacity:.65
+  }).addTo(map);
+  m.bindPopup('<strong>' + p[2] + '</strong>' + (p[3] ? '<span class="pin-note">' + p[3] + '</span>' : ''));
+  m.on('mouseover', function(){ this.setStyle({ radius:7, fillOpacity:.9 }); });
+  m.on('mouseout',  function(){ this.setStyle({ radius:5, fillOpacity:.65 }); });
+  bounds.push([p[0], p[1]]);
+});
+
+if (bounds.length) map.fitBounds(bounds, { padding:[46,46], maxZoom:5 });
+document.getElementById('pin-count').textContent = PLACES.length;
+
+/* isotherm drift */
+(function(){
+  var img = document.querySelector('.field img');
+  if (!img) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!window.matchMedia('(hover: hover)').matches) return;
+  var tx=0, ty=0, cx=0, cy=0, running=false;
+  addEventListener('pointermove', function(e){
+    tx = (e.clientX / innerWidth  - 0.5) * 72;
+    ty = (e.clientY / innerHeight - 0.5) * 56;
+    if (!running){ running = true; requestAnimationFrame(step); }
+  }, {passive:true});
+  function step(){
+    cx += (tx-cx)*0.022; cy += (ty-cy)*0.022;
+    img.style.transform = 'translate(' + cx.toFixed(2) + 'px, calc(-50% + ' + cy.toFixed(2) + 'px))';
+    if (Math.abs(tx-cx)>0.15 || Math.abs(ty-cy)>0.15) requestAnimationFrame(step);
+    else running = false;
+  }
+})();
+</script>
+</body>
+</html>
