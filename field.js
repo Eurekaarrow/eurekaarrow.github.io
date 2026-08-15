@@ -29,17 +29,22 @@
 
   /* ── the surface ────────────────────────────────────────── */
   /* a wide bowl, three basins of unequal depth, and a low ripple */
+  /* Everything lives in the right half of the domain: the container is
+     masked from the right, so anything left of x ~ 0.4 is invisible.     */
+  var BOWLX = 1.80, BOWLY = 0.00;
+
   var BASIN = [
     /*  cx     cy     sx    sy    depth */
-    [  0.55,  1.05, 1.15, 0.85, 1.30 ],   // global minimum
-    [ -0.95, -1.40, 0.95, 1.10, 0.86 ],   // local
-    [  1.40, -2.35, 0.78, 0.72, 0.52 ]    // shallow local
+    [  1.60, -0.90, 1.05, 0.95, 1.35 ],   // global minimum
+    [  2.40,  1.90, 0.85, 0.80, 0.72 ],   // local, passed on the way down
+    [  2.90, -2.70, 0.75, 0.70, 0.50 ]    // shallow local
   ];
 
   var bx = 0, by = 0, bA = 0;             // cursor bump
 
   function loss(x, y) {
-    var v = 0.16 * (x * x + 0.55 * y * y);
+    var dbx = x - BOWLX, dby = y - BOWLY;
+    var v = 0.16 * (dbx * dbx + 0.55 * dby * dby);
     for (var i = 0; i < 3; i++) {
       var b = BASIN[i], dx = x - b[0], dy = y - b[1];
       v -= b[4] * Math.exp(-(dx * dx / (2 * b[2] * b[2]) + dy * dy / (2 * b[3] * b[3])));
@@ -115,16 +120,54 @@
   }
 
   /* ── momentum SGD ───────────────────────────────────────── */
-  var STEPS = 330, path = new Float32Array(STEPS * 2), g = [0, 0];
+  /* The raw run converges long before it runs out of iterations, so the
+     path is resampled by arc length: scroll progress then tracks distance
+     travelled, not iteration count, and the head moves at a constant pace
+     all the way to the bottom of the page.                              */
+
+  var STEPS = 330;                       // render points, evenly spaced by distance
+  var RAW   = 2400;                      // raw integration steps
+  var path  = new Float32Array(STEPS * 2);
+  var rawX  = new Float64Array(RAW);
+  var rawY  = new Float64Array(RAW);
+  var cum   = new Float64Array(RAW);
+  var g     = [0, 0];
 
   function descend() {
-    var x = -2.05, y = 3.25, vx = 0, vy = 0;
-    for (var s = 0; s < STEPS; s++) {
-      path[s * 2] = x; path[s * 2 + 1] = y;
+    var x = 0.75, y = 3.50, vx = 0, vy = 0, n = 0, still = 0, s;
+
+    for (s = 0; s < RAW; s++) {
+      rawX[n] = x; rawY[n] = y; n++;
       grad(x, y, g);
-      vx = 0.865 * vx - 0.052 * g[0];
-      vy = 0.865 * vy - 0.052 * g[1];
+      vx = 0.885 * vx - 0.038 * g[0];
+      vy = 0.885 * vy - 0.038 * g[1];
       x += vx; y += vy;
+      if (Math.abs(vx) + Math.abs(vy) < 0.0018) { if (++still > 30) break; }
+      else still = 0;
+    }
+
+    if (n < 2) { path[0] = x; path[1] = y; for (var q = 1; q < STEPS; q++) { path[q*2] = x; path[q*2+1] = y; } return; }
+
+    cum[0] = 0;
+    for (s = 1; s < n; s++) {
+      var dx = rawX[s] - rawX[s-1], dy = rawY[s] - rawY[s-1];
+      cum[s] = cum[s-1] + Math.sqrt(dx * dx + dy * dy);
+    }
+    var total = cum[n-1];
+
+    if (total < 1e-6) {
+      for (var r = 0; r < STEPS; r++) { path[r*2] = rawX[0]; path[r*2+1] = rawY[0]; }
+      return;
+    }
+
+    var step = total / (STEPS - 1), j = 0;
+    for (var k = 0; k < STEPS; k++) {
+      var target = step * k;
+      while (j < n - 2 && cum[j + 1] < target) j++;
+      var seg = cum[j + 1] - cum[j];
+      var f = seg > 1e-9 ? (target - cum[j]) / seg : 0;
+      path[k*2]     = rawX[j] + (rawX[j+1] - rawX[j]) * f;
+      path[k*2 + 1] = rawY[j] + (rawY[j+1] - rawY[j]) * f;
     }
   }
 
