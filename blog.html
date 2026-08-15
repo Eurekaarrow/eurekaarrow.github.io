@@ -15,7 +15,7 @@
 </head>
 
 <body>
-<div class="field" aria-hidden="true"><img src="field-1.svg" alt="" /><img src="field-2.svg" alt="" /><img src="field-3.svg" alt="" /><img src="field-4.svg" alt="" /><img src="field-5.svg" alt="" /></div>
+<div class="field" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 
 <div class="page">
@@ -89,45 +89,8 @@
 var yEl = document.getElementById('y');
 if (yEl) yEl.textContent = new Date().getFullYear();
 
-(function(){
-  var layers = [].slice.call(document.querySelectorAll('.field img'));
-  if (!layers.length) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (!window.matchMedia('(hover: hover)').matches) return;
 
-  /* k = how far this shell follows the source; e = how fast it catches up.
-     The core tracks almost fully and quickly; outer shells barely stir.      */
-  var SHELL = [
-    { k:1.00, e:0.040 },
-    { k:0.58, e:0.028 },
-    { k:0.31, e:0.020 },
-    { k:0.15, e:0.014 },
-    { k:0.05, e:0.010 }
-  ];
-
-  var tx = 0, ty = 0, running = false;
-  var at = layers.map(function(){ return { x:0, y:0 }; });
-
-  addEventListener('pointermove', function(e){
-    tx = (e.clientX / innerWidth  - 0.5) * 104;
-    ty = (e.clientY / innerHeight - 0.5) * 78;
-    if (!running){ running = true; requestAnimationFrame(step); }
-  }, {passive:true});
-
-  function step(){
-    var moving = false;
-    for (var i = 0; i < layers.length; i++){
-      var s = SHELL[i] || SHELL[SHELL.length - 1], a = at[i];
-      var gx = tx * s.k, gy = ty * s.k;
-      a.x += (gx - a.x) * s.e;
-      a.y += (gy - a.y) * s.e;
-      layers[i].style.transform =
-        'translate(' + a.x.toFixed(2) + 'px, calc(-50% + ' + a.y.toFixed(2) + 'px))';
-      if (Math.abs(gx - a.x) > 0.12 || Math.abs(gy - a.y) > 0.12) moving = true;
-    }
-    if (moving) requestAnimationFrame(step); else running = false;
-  }
-})();
 </script>
+<script src="field.js"></script>
 </body>
 </html>

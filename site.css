@@ -60,14 +60,12 @@ a:hover{ color:var(--purple-mid) }
   -webkit-mask-image:linear-gradient(to left,#000 0%,rgba(0,0,0,.85) 28%,rgba(0,0,0,.28) 62%,transparent 88%);
   mask-image:linear-gradient(to left,#000 0%,rgba(0,0,0,.85) 28%,rgba(0,0,0,.28) 62%,transparent 88%);
 }
-.field img{
+.field canvas{
   position:absolute;
-  top:50%; right:-19%;
-  height:150vh; width:auto;
-  transform:translate(0,-50%);
-  will-change:transform;
+  inset:0;
+  width:100%; height:100%;
+  display:block;
 }
-.field img + img{ z-index:0 }
 @keyframes fieldIn{ to{ opacity:.5 } }
 
 /* ═══════════════ paper grain ═══════════════ */
