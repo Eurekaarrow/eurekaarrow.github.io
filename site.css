@@ -67,6 +67,7 @@ a:hover{ color:var(--purple-mid) }
   transform:translate(0,-50%);
   will-change:transform;
 }
+.field img + img{ z-index:0 }
 @keyframes fieldIn{ to{ opacity:.5 } }
 
 /* ═══════════════ paper grain ═══════════════ */
