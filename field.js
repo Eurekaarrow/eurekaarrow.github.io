@@ -21,7 +21,7 @@
 
   /* ── domain ─────────────────────────────────────────────── */
   var X0 = -2.6, X1 = 3.4, Y0 = -4.0, Y1 = 4.0;
-  var COLS = 100, ROWS = 142, LEVELS = 24;
+  var COLS = 92, ROWS = 130, LEVELS = 38;
 
   var W = 0, H = 0, dpr = 1;
   var vals = new Float32Array(COLS * ROWS);
@@ -33,10 +33,10 @@
      shallow basin off to the side. Everything sits in the right half of the
      domain, since the container is masked from the right.                  */
 
-  var MX = 2.45, MY = 0.95, YSQ = 0.82;
+  var MX = 2.45, MY = 0.95, YSQ = 0.90;
 
-  var HARM = [ [2, 0.30, 1.1], [3, 0.17, 2.6], [5, 0.08, 4.9] ];
-  var SIDE = [ 1.00, -1.95, 1.00, 0.90, 0.40 ];   // cx cy sx sy depth
+  var HARM = [ [2, 0.150, 1.1], [3, 0.085, 2.6], [5, 0.038, 4.9] ];
+  var SIDE = [ 1.00, -1.95, 1.00, 0.90, 0.26 ];   // cx cy sx sy depth
 
   var bx = 0, by = 0, bA = 0;                     // cursor bump
 
@@ -79,7 +79,7 @@
     }
     if (levels.length === 0) {
       for (var n = 0; n < LEVELS; n++) {
-        levels.push(lo + (hi - lo) * Math.pow((n + 0.5) / LEVELS, 1.85));  // denser near the minimum
+        levels.push(lo + (hi - lo) * Math.pow((n + 0.5) / LEVELS, 1.50));  // denser near the minimum
       }
     }
   }
@@ -188,8 +188,8 @@
     for (var n = 0; n < levels.length; n++) {
       march(levels[n], seg);
       var t = n / (levels.length - 1);
-      ctx.strokeStyle = 'rgba(123,90,166,' + (0.66 - 0.42 * t).toFixed(3) + ')';
-      ctx.lineWidth = 1.12 - 0.40 * t;
+      ctx.strokeStyle = 'rgba(123,90,166,' + (0.60 - 0.38 * t).toFixed(3) + ')';
+      ctx.lineWidth = 0.95 - 0.33 * t;
       ctx.beginPath();
       for (var k = 0; k < seg.length; k += 4) {
         ctx.moveTo(sx(seg[k]),     sy(seg[k + 1]));
