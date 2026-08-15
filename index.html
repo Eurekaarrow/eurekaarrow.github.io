@@ -1,649 +1,668 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Yuchen Guo</title>
-  <meta name="description" content="Yuchen Guo — academic website. Bio and projects coming soon.">
-  <meta name="theme-color" content="#ffffff" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Yuchen Guo</title>
+<meta name="description" content="Yuchen Guo — MSAI student at Northwestern University. Multimodal perception, grounded reasoning, agent memory, continual learning." />
+<meta name="theme-color" content="#ffffff" />
 
-  <link rel="icon" type="image/jpeg" href="cat.jpg">
-  <link rel="shortcut icon" type="image/jpeg" href="cat.jpg">
-  <link rel="apple-touch-icon" href="cat.jpg">
+<link rel="icon" type="image/jpeg" href="cat.jpg" />
+<link rel="apple-touch-icon" href="cat.jpg" />
 
-  <style>
-    :root {
-      --bg: #ffffff;
-      --card: #f9fafb;
-      --muted: #6b7280;
-      --accent: #2563eb;
-      --radius: 14px;
-    }
-    * { 
-      box-sizing: border-box; 
-      margin: 0;
-      padding: 0;
-    }
-    html, body { 
-      height: 100%;
-      min-height: 100vh;
-    }
-    body {
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: var(--bg);
-      color: #1f2937;
-      padding: 16px;
-      /* 移除 flex 和 align-items: center，避免在移动端出现布局问题 */
-    }
-    
-    /* 移动端优先的响应式设计 */
-    .wrap {
-      width: 100%;
-      max-width: 940px;
-      margin: 0 auto 32px auto;
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-      overflow: hidden;
-      border: 1px solid #e5e7eb;
-      min-height: auto;
-    }
-    
-    header {
-      padding: 24px 20px;
-      display: flex;
-      gap: 24px;
-      align-items: center;
-      background: #fff;
-      border-bottom: 1px solid #e5e7eb;
-      /* 确保在移动端有足够的空间 */
-      min-height: auto;
-    }
-    
-    .avatar {
-      width: 76px;
-      height: 76px;
-      border-radius: 12px;
-      overflow: hidden;
-      flex: 0 0 76px;
-      border: 1px solid #e5e7eb;
-    }
-    
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-    .title {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      min-width: 0; /* 防止文字溢出 */
-    }
-    
-    .title h1 {
-      font-size: 20px;
-      font-weight: 600;
-      line-height: 1.2;
-    }
-    
-    .title p {
-      margin: 12px 0 0 0;
-      color: var(--muted);
-      font-size: 24px;
-      line-height: 1.3;
-    }
-    
-    main {
-      padding: 20px 16px 32px 16px;
-    }
-    
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 16px;
-      border: 1px solid #e5e7eb;
-      margin-bottom: 20px;
-    }
-    
-    .bio h2, .publications h2 {
-      margin: 0 0 12px 0;
-      font-size: 16px;
-    }
-    
-    .bio p {
-      margin: 0 0 12px 0;
-      color: #374151;
-      line-height: 1.6;
-      font-size: 14px;
-    }
-    
-    .publication-item {
-      margin: 0 0 16px 0;
-      padding: 16px;
-      border-radius: 10px;
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      transition: all 0.2s ease;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-    
-    .publication-item:hover {
-      background: #f3f4f6;
-      border-color: var(--accent);
-    }
-    
-    .publication-item:last-child {
-      margin-bottom: 0;
-    }
-    
-    .publication-image {
-      flex: 0 0 120px;
-      width: 120px;
-      height: 80px;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid #e5e7eb;
-      background: #fff;
-    }
-    
-    .publication-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    
-    .publication-content {
-      flex: 1;
-      min-width: 0;
-    }
-    
-    .publication-title {
-      font-weight: 600;
-      font-size: 15px;
-      color: #1f2937;
-      margin-bottom: 6px;
-      line-height: 1.4;
-    }
-    
-    .publication-authors {
-      font-size: 14px;
-      color: #374151;
-      margin-bottom: 4px;
-      line-height: 1.4;
-    }
-    
-    .publication-venue {
-      font-size: 14px;
-      color: #374151;
-      font-style: italic;
-      margin-bottom: 8px;
-    }
-    
-    .oral-presentation {
-      color: #b91c1c;
-      font-weight: 700;
-      font-style: normal;
-    }
-    
-    .publication-links {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    
-    .publication-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px 10px;
-      background: var(--accent);
-      color: white;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: background-color 0.2s ease;
-    }
-    
-    .publication-link:hover {
-      background: #658AE0;
-    }
-    
-    .publication-link.secondary {
-      background: #6CA8F5;
-    }
-    
-    .publication-link.secondary:hover {
-      background: #2563eb;
-    }
-    
-    .construction {
-      margin-top: 16px;
-      padding: 12px;
-      border-radius: 10px;
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-    
-    .construction .dot {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: #fff;
-      font-size: 16px;
-      flex: 0 0 36px;
-    }
-    
-    .construction .txt {
-      font-weight: 600;
-      font-size: 14px;
-      color: #1f2937;
-    }
-    
-    .construction .sub {
-      color: var(--muted);
-      font-weight: 400;
-      font-size: 12px;
-      margin-top: 4px;
-      line-height: 1.4;
-    }
+<style>
+:root{
+  --ink:        #17141c;
+  --ink-soft:   #3d3648;
+  --muted:      #6b6478;
+  --faint:      #9a93a6;
 
-    footer {
-      padding: 12px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      color: var(--muted);
-      font-size: 12px;
-      border-top: 1px solid #e5e7eb;
-      background: #fff;
-    }
-    
-    a { 
-      color: var(--accent); 
-      text-decoration: none;
-      word-break: break-all;
-    }
+  --paper:      #ffffff;
+  --wash:       #f7f4fb;
+  --rule:       #e9e4f1;
+  --rule-soft:  #f0ecf6;
 
-    /* 平板和桌面端的优化 */
-    @media (min-width: 768px) {
-      body {
-        padding: 32px;
-        min-height: 100vh;
-      }
-      
-      header {
-        padding: 46px 32px;
-        gap: 32px;
-      }
-      
-      .avatar {
-        width: 120px;
-        height: 120px;
-        flex: 0 0 120px;
-      }
-      
-      .title h1 {
-        font-size: 28px;
-      }
-      
-      .title p {
-        font-size: 16px;
-        margin: 9px 0 0 0;
-      }
-      
-      main {
-        padding: 28px 32px 40px 32px;
-      }
-      
-      .card {
-        padding: 20px;
-        margin-bottom: 24px;
-      }
-      
-      .bio p {
-        font-size: 15px;
-      }
-      
-      .publication-item {
-        padding: 18px;
-        margin-bottom: 18px;
-        gap: 20px;
-      }
-      
-      .publication-image {
-        flex: 0 0 140px;
-        width: 140px;
-        height: 95px;
-      }
-      
-      .publication-title {
-        font-size: 16px;
-      }
-      
-      .publication-authors {
-        font-size: 14px;
-      }
-      
-      .publication-venue {
-        font-size: 14px;
-      }
-      
-      .publication-link {
-        font-size: 13px;
-        padding: 5px 12px;
-      }
-      
-      .construction {
-        padding: 14px;
-        margin-top: 18px;
-      }
-      
-      .construction .dot {
-        width: 42px;
-        height: 42px;
-        font-size: 18px;
-        flex: 0 0 42px;
-      }
-      
-      .construction .txt {
-        font-size: 15px;
-      }
-      
-      .construction .sub {
-        font-size: 13px;
-      }
-      
-      footer {
-        padding: 16px 32px;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 13px;
-      }
-    }
-    
-    /* 确保图片在各种设备上正确显示 */
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-  </style>
+  --purple:     #4e2a84;
+  --purple-mid: #7b5aa6;
+  --purple-tint:#ece5f6;
+
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --sans:  "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --page:  1060px;
+  --rail:  158px;
+  --gap:   52px;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0 }
+html{ -webkit-text-size-adjust:100% }
+
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+a{ color:var(--purple); text-decoration:none }
+a:hover{ color:var(--purple-mid) }
+
+:focus-visible{ outline:2px solid var(--purple); outline-offset:3px; border-radius:2px }
+
+.page{ max-width:var(--page); margin:0 auto; padding:0 28px 110px }
+
+/* ───────── header: photo + name ───────── */
+
+.masthead{
+  display:grid;
+  grid-template-columns:170px 1fr;
+  gap:44px;
+  align-items:center;
+  padding:76px 0 40px;
+}
+
+.portrait{
+  width:170px;
+  border:1px solid var(--rule);
+  border-radius:4px;
+  overflow:hidden;
+  background:var(--wash);
+}
+.portrait img{ width:100%; display:block }
+
+.name{
+  font-family:var(--serif);
+  font-size:clamp(38px, 6vw, 56px);
+  font-weight:300;
+  line-height:1.04;
+  letter-spacing:-.022em;
+  color:var(--ink);
+}
+
+.affil{
+  margin-top:14px;
+  font-size:16.5px;
+  color:var(--ink-soft);
+  line-height:1.5;
+}
+.affil .school{ color:var(--ink); font-weight:600 }
+
+.contact{
+  margin-top:22px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px 22px;
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.03em;
+}
+.contact a{
+  color:var(--muted);
+  border-bottom:1px solid var(--rule);
+  padding-bottom:2px;
+  transition:color .18s ease, border-color .18s ease;
+}
+.contact a:hover{ color:var(--purple); border-bottom-color:var(--purple-mid) }
+
+/* ───────── section shell ───────── */
+
+.band{
+  display:grid;
+  grid-template-columns:var(--rail) 1fr;
+  gap:var(--gap);
+  padding:44px 0;
+  border-top:1px solid var(--rule);
+}
+.band--open{ border-top:0; padding-top:0 }
+
+.band-label{
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--faint);
+  padding-top:6px;
+}
+
+.band-body{ min-width:0 }
+
+/* ───────── bio ───────── */
+
+.bio p{
+  max-width:64ch;
+  color:var(--ink-soft);
+  font-size:16px;
+  margin-bottom:14px;
+}
+.bio p:last-child{ margin-bottom:0 }
+.bio strong{ color:var(--ink); font-weight:600 }
+.bio a{ border-bottom:1px solid var(--rule-soft) }
+.bio a:hover{ border-bottom-color:var(--purple-mid) }
+
+/* ───────── research ───────── */
+
+.statement{
+  font-family:var(--serif);
+  font-size:20.5px;
+  font-weight:300;
+  line-height:1.5;
+  letter-spacing:-.004em;
+  color:var(--ink);
+  max-width:56ch;
+}
+.statement em{ font-style:italic; color:var(--purple) }
+
+.statement-sub{
+  margin-top:14px;
+  max-width:62ch;
+  font-size:15.5px;
+  color:var(--ink-soft);
+}
+
+.keys{
+  margin:22px 0 38px;
+  font-family:var(--mono);
+  font-size:11.5px;
+  letter-spacing:.05em;
+  color:var(--muted);
+  display:flex;
+  flex-wrap:wrap;
+  gap:0 11px;
+}
+.keys span:not(:last-child)::after{
+  content:"·"; color:var(--faint); margin-left:11px;
+}
+
+.theme{ padding-bottom:28px }
+.theme:last-child{ padding-bottom:0 }
+
+.theme-name{
+  font-family:var(--serif);
+  font-size:19.5px;
+  font-weight:400;
+  color:var(--ink);
+  margin-bottom:6px;
+}
+.theme-name::before{
+  content:"";
+  display:inline-block;
+  width:15px; height:1px;
+  background:var(--purple);
+  vertical-align:middle;
+  margin-right:11px;
+  opacity:.75;
+}
+
+.theme-note{
+  max-width:60ch;
+  color:var(--ink-soft);
+  font-size:15.5px;
+  margin-left:26px;
+}
+
+.theme-refs{
+  margin:8px 0 0 26px;
+  font-family:var(--mono);
+  font-size:11.5px;
+  color:var(--muted);
+}
+.theme-refs a{ color:var(--muted); border-bottom:1px solid var(--rule) }
+.theme-refs a:hover{ color:var(--purple); border-bottom-color:var(--purple-mid) }
+.theme-refs .dot{ color:var(--faint); margin:0 .5em }
+
+/* ───────── publications ───────── */
+
+.pubgroup + .pubgroup{ margin-top:40px }
+
+.pubgroup-title{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--purple);
+  padding-bottom:10px;
+  margin-bottom:24px;
+  border-bottom:1px solid var(--purple-tint);
+}
+
+.pub{
+  display:grid;
+  grid-template-columns:104px 1fr;
+  gap:22px;
+  padding:19px 0;
+  border-bottom:1px solid var(--rule-soft);
+  align-items:start;
+}
+.pub:last-of-type{ border-bottom:0 }
+
+.pub-fig{
+  width:104px; height:68px;
+  border:1px solid var(--rule);
+  border-radius:3px;
+  overflow:hidden;
+  background:var(--wash);
+}
+.pub-fig img{ width:100%; height:100%; object-fit:cover; display:block }
+
+.pub-body{ min-width:0 }
+
+.pub-title{
+  font-family:var(--serif);
+  font-size:18px;
+  font-weight:400;
+  line-height:1.35;
+  color:var(--ink);
+  margin-bottom:6px;
+}
+
+.pub-authors{
+  font-size:13.5px;
+  line-height:1.55;
+  color:var(--muted);
+  margin-bottom:7px;
+}
+.pub-authors .me{ color:var(--ink); font-weight:600 }
+
+.pub-meta{
+  display:flex; flex-wrap:wrap; align-items:baseline;
+  gap:6px 14px;
+  font-family:var(--mono);
+  font-size:11.5px;
+  letter-spacing:.03em;
+  color:var(--muted);
+}
+.pub-venue{ color:var(--ink-soft); font-weight:500 }
+.pub-flag{
+  color:var(--purple);
+  border:1px solid var(--purple-tint);
+  background:var(--wash);
+  border-radius:2px;
+  padding:1px 6px;
+  font-size:10.5px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+.pub-links{ margin-left:auto; display:flex; gap:14px }
+.pub-links a{ color:var(--muted); border-bottom:1px solid var(--rule) }
+.pub-links a:hover{ color:var(--purple); border-bottom-color:var(--purple-mid) }
+
+.pub-foot{
+  margin-top:20px;
+  font-size:12.5px;
+  color:var(--faint);
+  font-style:italic;
+}
+
+/* ───────── coda ───────── */
+
+.coda blockquote{
+  font-family:var(--serif);
+  font-size:19px;
+  font-weight:300;
+  font-style:italic;
+  line-height:1.5;
+  letter-spacing:-.004em;
+  color:var(--ink-soft);
+  max-width:42ch;
+}
+.coda cite{
+  display:block;
+  margin-top:12px;
+  font-family:var(--mono);
+  font-size:10.5px;
+  font-style:normal;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--faint);
+}
+
+/* ───────── footer ───────── */
+
+.foot{
+  border-top:1px solid var(--rule);
+  padding-top:22px;
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.05em;
+  color:var(--faint);
+}
+
+/* ───────── motion ───────── */
+
+.rise{
+  opacity:0; transform:translateY(8px);
+  animation:rise .6s cubic-bezier(.22,.68,.35,1) forwards;
+}
+.rise-2{ animation-delay:.1s }
+@keyframes rise{ to{ opacity:1; transform:none } }
+
+@media (prefers-reduced-motion: reduce){
+  .rise{ animation:none; opacity:1; transform:none }
+  *{ transition:none !important }
+}
+
+/* ───────── responsive ───────── */
+
+@media (max-width: 880px){
+  .band{ grid-template-columns:1fr; gap:18px; padding:38px 0 }
+  .band-label{ padding-top:0 }
+  .masthead{ padding:56px 0 34px; gap:32px; grid-template-columns:140px 1fr }
+  .portrait{ width:140px }
+}
+
+@media (max-width: 560px){
+  .page{ padding:0 20px 72px }
+  .masthead{
+    grid-template-columns:1fr;
+    gap:22px;
+    padding:44px 0 30px;
+    align-items:start;
+  }
+  .portrait{ width:118px }
+  .statement{ font-size:19px }
+  .pub{ grid-template-columns:1fr; gap:14px }
+  .pub-fig{ width:100%; height:130px }
+  .pub-links{ margin-left:0; width:100%; margin-top:4px }
+  .theme-note, .theme-refs{ margin-left:0 }
+}
+</style>
 </head>
-  
+
 <body>
-  <div class="wrap" role="main">
-    <header>
-      <div class="avatar">
-        <img src="photo.png" alt="Portrait of Yuchen Guo" />
+<div class="page">
+
+  <!-- ══════ MASTHEAD ══════ -->
+  <header class="masthead rise">
+    <div class="portrait"><img src="photo.png" alt="Yuchen Guo" /></div>
+    <div>
+      <h1 class="name">Yuchen Guo</h1>
+      <p class="affil">
+        MS in Artificial Intelligence<br />
+        <span class="school">Northwestern University</span>
+      </p>
+      <nav class="contact">
+        <a href="mailto:yuchenguo2027@u.northwestern.edu">Email</a>
+        <a href="#">Google Scholar</a>
+        <a href="#">CV</a>
+        <a href="#">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ══════ BIO ══════ -->
+  <section class="band band--open rise rise-2">
+    <div class="band-label"></div>
+    <div class="band-body bio">
+      <p>
+        I am pursuing the <strong>MS in Artificial Intelligence</strong> at
+        <strong>Northwestern University</strong>. I received my BSc in Computer Science with First
+        Class Honours from <strong>Hong Kong Baptist University</strong>, Zhuhai.
+      </p>
+      <p>
+        Previously I was a research intern with the <strong>XPixel Group, MMLab</strong> at the
+        Shenzhen Institutes of Advanced Technology, Chinese Academy of Sciences, advised by
+        <a href="https://scholar.google.com/citations?user=OSDCB0UAAAAJ&amp;hl=en">Prof. Chao Dong</a>,
+        and at the <strong>Institute for AI Industry Research (AIR)</strong>, Tsinghua University,
+        advised by <a href="https://air.tsinghua.edu.cn/en/info/1046/1621.htm">Prof. Yilun Chen</a>.
+        I was also a summer visiting student in AI and Machine Learning at the
+        <strong>University of Oxford</strong>, advised by
+        <a href="https://www.robots.ox.ac.uk/~twgr/">Prof. Tom Rainforth</a>.
+      </p>
+      <p>
+        I work closely with
+        <a href="https://scholar.google.com/citations?user=G4uCKHcAAAAJ&amp;hl=en">Dr. Wei Ji</a>
+        at Yale and <a href="https://jimmyzou.github.io/">Dr. Shihao Zou</a> at SIAT.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════ RESEARCH INTERESTS ══════ -->
+  <section class="band">
+    <div class="band-label">Research</div>
+    <div class="band-body">
+
+      <p class="statement">
+        I am interested in studying intelligence by <em>building multimodal systems</em> that learn
+        and develop through experience and interaction with the world.
+      </p>
+      <p class="statement-sub">
+        My current work asks how such systems can expand what they perceive, internalize what they
+        experience, and use their understanding to reason about and act in the world.
+      </p>
+
+      <div class="keys">
+        <span>Multimodal Perception</span>
+        <span>Grounded Reasoning</span>
+        <span>Agent Memory</span>
+        <span>Continual Learning</span>
       </div>
-      <div class="title">
-        <h1>Yuchen Guo</h1>
-        <p>McCormick School of Engineering</p>
-        <p>Northwestern University</p>
-      </div>
-    </header>
 
-    <main>
-      <div class="card bio" aria-labelledby="bio-heading">
-        <h2 id="bio-heading">Bio</h2>
-        <p>
-          I am currently pursuing the <strong>Master of Science in Artificial Intelligence</strong> at <strong>Northwestern University</strong>, Evanston, Illinois, United States, 
-          and I received my <strong>Bachelor of Science in Computer Science and Technology</strong> with first class honours from <strong>Hong Kong Baptist University</strong>, Zhuhai, China. 
-          </p>
-        <p>
-          Previously, I worked as research intern at <strong>XPixel Group, Multimedia Laboratory (MMLab)</strong>, Shenzhen Institutes of Advanced Technology, 
-          Chinese Academy of Sciences (SIAT, CAS), advised by <a href="https://scholar.google.com/citations?user=OSDCB0UAAAAJ&hl"><strong>Prof. Chao Dong</strong></a>.
-          And I also conducted research at the <strong>Institute for AI Industry Research (AIR), Tsinghua University</strong>, 
-          advised by <a href="https://air.tsinghua.edu.cn/en/info/1046/1621.htm"><strong>Prof. Yilun Chen</strong></a>.
+      <div class="theme">
+        <div class="theme-name">Perception beyond human senses</div>
+        <p class="theme-note">
+          What a system should sense when it is not restricted to the visible spectrum — and whether
+          that perception can run fast enough to be acted on.
         </p>
-        <p>
-          Additionally, I was a <strong>Summer Visiting Student</strong> in Artificial Intelligence and Machine Learning at the 
-          <strong>University of Oxford</strong>, advised by <a href="https://www.robots.ox.ac.uk/~twgr/"><strong>Prof. Tom Rainforth</strong></a>.
-        </p>
-        <p>
-          I also work closely with <a href="https://jimmyzou.github.io/"><strong>Dr. Shihao Zou</strong></a> at SIAT and <a href="https://scholar.google.com/citations?user=G4uCKHcAAAAJ&hl=en">
-          <strong>Dr. Wei Ji</strong></a> at Yale.
-        </p>
-
-        <p>
-          📧 Email: <a href="mailto:yuchenguo2027@u.northwestern.edu">yuchenguo2027@u.northwestern.edu</a>
-        </p>
+        <div class="theme-refs">
+          <a href="https://arxiv.org/pdf/2605.06010">FusionProxy</a><span class="dot">·</span><a href="https://www.arxiv.org/pdf/2409.10080">DAE-Fuse</a><span class="dot">·</span><a href="https://arxiv.org/pdf/2605.06969">FuScore</a>
+        </div>
       </div>
 
-      <div class="card publications" aria-labelledby="publications-heading">
-        <h2 id="publications-heading">Selected Publications</h2>
-        <p style="font-size: 0.9em; color: #666;">
-          <em>Note: <sup>*</sup> indicates equal contribution, and <sup>✉</sup> indicates corresponding author.</em>
+      <div class="theme">
+        <div class="theme-name">Grounded reasoning</div>
+        <p class="theme-note">
+          Whether what a model perceives is sufficient to reason about action, or only enough to
+          label what is there.
         </p>
-        <br>
+        <div class="theme-refs">
+          <a href="https://arxiv.org/pdf/2605.27764">SegWorld</a><span class="dot">·</span><a href="https://arxiv.org/abs/2512.04585">SAM3-I</a>
+        </div>
+      </div>
 
-        <div class="publication-item">
-            <div class="publication-image">
-              <img src="sam3-I.png" alt="SAM3-I paper preview" />
-            </div>
-            <div class="publication-content">
-              <div class="publication-title">SAM3-I: Segment Anything with Instructions</div>
-              <div class="publication-authors">
-                        Jingjing Li<sup>*</sup>, Yue Feng<sup>*</sup>, <strong>Yuchen Guo<sup>*</sup></strong>, Jincai Huang<sup>*</sup>, Wei Ji<sup>✉</sup>, Qi Bi, Yongri Piao, Miao Zhang, Xiaoqi Zhao, Qiang Chen, Shihao Zou<sup>✉</sup>,
-                        Huchuan Lu, Li Cheng.
-              </div>
-              <div class="publication-authors">
-                Association for Computational Linguistics (<strong>ACL</strong> 2026)
-              </div>
-              <div class="publication-links">
-                <a href="https://arxiv.org/abs/2512.04585" class="publication-link secondary">
-                  📄 Paper
-                </a>
-              </div>
-            </div>
+      <div class="theme">
+        <div class="theme-name">Agent memory</div>
+        <p class="theme-note">
+          How interaction consolidates into the model itself, rather than accumulating in a buffer
+          the model looks things up in.
+        </p>
+        <div class="theme-refs">
+          <a href="https://arxiv.org/pdf/2605.27762">PEAM</a>
         </div>
+      </div>
 
-        <div class="publication-item">
-            <div class="publication-image">
-              <img src="fusionproxy.png" alt="FusionProxy paper preview" />
-            </div>
-            <div class="publication-content">
-              <div class="publication-title">Adding Thermal Awareness to Visual Systems in Real-Time via Distilled Diffusion Models</div>
-              <div class="publication-authors">
-                <strong>Yuchen Guo<sup>✉</sup></strong>, Junli Gong, Wenjun Dong, Yiu-ming Cheung, Weifeng Su<sup>✉</sup>.
-              </div>
-              <div class="publication-authors">
-                Computer Vision and Pattern Recognition Workshop (<strong>CVPR</strong> 2026 Workshop) <br>
-                World Models Meet Active Sensing and Closed-Loop Planning
-              </div>
-              <div class="publication-links">
-                <a href="https://arxiv.org/pdf/2605.06010" class="publication-link secondary">
-                  📄 Paper
-                </a>
-              </div>
-            </div>
-        </div>
+      <div class="theme">
+        <div class="theme-name">Continual learning</div>
+        <p class="theme-note">How a system keeps developing after training ends.</p>
+        <div class="theme-refs">In submission</div>
+      </div>
 
-        <div class="publication-item">
-            <div class="publication-image">
-              <img src="PEAM.png" alt="PEAM paper preview" />
-            </div>
-            <div class="publication-content">
-              <div class="publication-title">PEAM: Parametric Embodied Agent Memory through Contrastive Internalization of Experience in Minecraft</div>
-              <div class="publication-authors">
-                <strong>Yuchen Guo<sup>✉</sup></strong>, Junli Gong, Weicheng Wang, Hongmin Cai, Yiu-ming Cheung, Weifeng Su<sup>✉</sup>.
-              </div>
-              <div class="publication-authors">
-                ArXiv Preprint 2026
-              </div>
-              <div class="publication-links">
-                <a href="https://arxiv.org/pdf/2605.27762" class="publication-link secondary">
-                  📄 Paper
-                </a>
-              </div>
-            </div>
-        </div>
-        
-        <div class="publication-item">
-            <div class="publication-image">
-              <img src="SegWorld.png" alt="SegWorld paper preview" />
-            </div>
-            <div class="publication-content">
-              <div class="publication-title">Can Segmentation Models Understand the World? Towards Proactive Affordance Reasoning via Visual Chain-of-Thought</div>
-              <div class="publication-authors">
-                <strong>Yuchen Guo<sup>✉</sup></strong>, Junli Gong, Hongmin Cai, Yiu-ming Cheung, Weifeng Su<sup>✉</sup>.
-              </div>
-              <div class="publication-authors">
-                ArXiv Preprint 2026
-              </div>
-              <div class="publication-links">
-                <a href="https://arxiv.org/pdf/2605.27764" class="publication-link secondary">
-                  📄 Paper
-                </a>
-              </div>
-            </div>
-        </div>
-        
-        <div class="publication-item">
-            <div class="publication-image">
-              <img src="surg.png" alt="SurgMLLM paper preview" />
-            </div>
-            <div class="publication-content">
-              <div class="publication-title">Towards Unified Surgical Scene Understanding: Bridging Reasoning and Grounding via MLLMs</div>
-              <div class="publication-authors">
-                        Jincai Huang<sup>*</sup>, Shihao Zou<sup>*</sup>, <strong>Yuchen Guo</strong>, Jingjing Li, Wei Ji, Kai Wang, Shanshan Wang, <span style="white-space: nowrap;">Weixin Si<sup>✉</sup>.</span>
-              </div>
-              <div class="publication-authors">
-                Medical Image Computing and Computer Assisted Intervention (<strong>MICCAI</strong> 2026)
-                <br><span class="oral-presentation">Early Accepted</span>
-              </div>
-              <div class="publication-links">
-                <a href="https://arxiv.org/pdf/2605.13530" class="publication-link secondary">
-                  📄 Paper
-                </a>
-              </div>
-            </div>
-        </div>
+    </div>
+  </section>
 
-        <div class="publication-item">
-            <div class="publication-image">
-              <img src="daep1.png" alt="DAEFuse paper preview" />
-            </div>
-            <div class="publication-content">
-              <div class="publication-title">DAE-Fuse: An Adaptive Discriminative Autoencoder for Multi-Modality Image Fusion</div>
-              <div class="publication-authors">
-                <strong>Yuchen Guo<sup>*</sup></strong>, Ruoxiang Xu<sup>*</sup>, Rongcheng Li, Weifeng Su<sup>✉</sup>.
-              </div>
-              <div class="publication-authors">
-                International Conference on Multimedia & Expo (<strong>ICME</strong> 2025) 
-                <br><span class="oral-presentation">Oral Presentation</span>
-              </div>
-              <div class="publication-links">
-                <a href="https://eurekaarrow.github.io/daefuse.github.io/" class="publication-link secondary">
-                  🌐 Project Page
-                </a>
-                <a href="https://www.arxiv.org/pdf/2409.10080" class="publication-link secondary">
-                  📄 Paper
-                </a>
-              </div>
-            </div>
-        </div>
-        
-        <div class="publication-item">
-            <div class="publication-image">
-              <img src="Lumi.png" alt="LumiVideo paper preview" />
-            </div>
-            <div class="publication-content">
-              <div class="publication-title">LumiVideo: An Intelligent Agentic System for Video Color Grading</div>
-              <div class="publication-authors">
-                <strong>Yuchen Guo<sup>✉</sup></strong>, Junli Gong, Hongmin Cai, Yiu-ming Cheung, Weifeng Su<sup>✉</sup>.
-              </div>
-              <div class="publication-authors">
-                ArXiv Preprint 2026
-              </div>
-              <div class="publication-links">
-                <a href="https://eurekaarrow.github.io/LumiVideo/" class="publication-link secondary">
-                  🌐 Project Page
-                </a>
-                <a href="https://arxiv.org/pdf/2604.02409" class="publication-link secondary">
-                  📄 Paper
-                </a>
-              </div>
-            </div>
-        </div>
+  <!-- ══════ PUBLICATIONS ══════ -->
+  <section class="band">
+    <div class="band-label">Publications</div>
+    <div class="band-body">
 
-        <div class="publication-item">
-            <div class="publication-image">
-              <img src="FuScore.png" alt="FuScore paper preview" />
-            </div>
-            <div class="publication-content">
-              <div class="publication-title">Bringing Multimodal Large Language Models to Infrared-Visible Image Fusion Quality Assessment</div>
-              <div class="publication-authors">
-                <strong>Yuchen Guo*</strong>, Junli Gong*, Yao Lu, Xintong Xu, Yiu-ming Cheung, Weifeng Su<sup>✉</sup>.
-              </div>
-              <div class="publication-authors">
-                ArXiv Preprint 2026
-              </div>
-              <div class="publication-links">
-                <a href="https://arxiv.org/pdf/2605.06969" class="publication-link secondary">
-                  📄 Paper
-                </a>
-              </div>
-            </div>
-        </div>
+      <div class="pubgroup">
+        <div class="pubgroup-title">Peer-reviewed</div>
 
-        <div class="publication-item">
-            <div class="publication-image">
-              <img src="seg1.png" alt="Fuse4Seg paper preview" />
+        <article class="pub">
+          <div class="pub-fig"><img src="sam3-I.png" alt="SAM3-I" /></div>
+          <div class="pub-body">
+            <h3 class="pub-title">SAM3-I: Segment Anything with Instructions</h3>
+            <p class="pub-authors">
+              Jingjing Li*, Yue Feng*, <span class="me">Yuchen Guo</span>*, Jincai Huang*, Wei Ji,
+              Qi Bi, Yongri Piao, Miao Zhang, Xiaoqi Zhao, Qiang Chen, Shihao Zou, Huchuan Lu, Li Cheng
+            </p>
+            <div class="pub-meta">
+              <span class="pub-venue">ACL 2026</span>
+              <span>Main Conference</span>
+              <span class="pub-links"><a href="https://arxiv.org/abs/2512.04585">Paper</a></span>
             </div>
-            <div class="publication-content">
-              <div class="publication-title">Fuse4Seg: Image Fusion for Multi-Modal Medical Segmentation via Bi-level Optimization</div>
-              <div class="publication-authors">
-                <strong>Yuchen Guo</strong>, Junli Gong, Hongmin Cai, Yiu-ming Cheung, Weifeng Su<sup>✉</sup>.
-              </div>
-              <div class="publication-authors">
-                ArXiv Preprint 2025
-              </div>
-              <div class="publication-links">
-                <a href="https://arxiv.org/pdf/2409.10328?" class="publication-link secondary">
-                  📄 Paper
-                </a>
-              </div>
-            </div>
-        </div>
-
-        <div class="construction" role="status" aria-live="polite">
-          <div class="dot">🚧</div>
-          <div>
-            <div class="txt">Under Construction</div>
-            <div class="sub">Additional publications, projects, and CV will be added soon.</div>
           </div>
-        </div>
+        </article>
+
+        <article class="pub">
+          <div class="pub-fig"><img src="surg.png" alt="Surgical scene understanding" /></div>
+          <div class="pub-body">
+            <h3 class="pub-title">Towards Unified Surgical Scene Understanding: Bridging Reasoning and Grounding via MLLMs</h3>
+            <p class="pub-authors">
+              Jincai Huang*, Shihao Zou*, <span class="me">Yuchen Guo</span>, Jingjing Li, Wei Ji,
+              Kai Wang, Shanshan Wang, Weixin Si
+            </p>
+            <div class="pub-meta">
+              <span class="pub-venue">MICCAI 2026</span>
+              <span class="pub-flag">Early Accept</span>
+              <span class="pub-links"><a href="https://arxiv.org/pdf/2605.13530">Paper</a></span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pub">
+          <div class="pub-fig"><img src="fusionproxy.png" alt="FusionProxy" /></div>
+          <div class="pub-body">
+            <h3 class="pub-title">Adding Thermal Awareness to Visual Systems in Real-Time via Distilled Diffusion Models</h3>
+            <p class="pub-authors">
+              <span class="me">Yuchen Guo</span>, Junli Gong, Wenjun Dong, Yiu-ming Cheung, Weifeng Su
+            </p>
+            <div class="pub-meta">
+              <span class="pub-venue">CVPR 2026 Workshop</span>
+              <span>World Models Meet Active Sensing and Closed-Loop Planning</span>
+              <span class="pub-links"><a href="https://arxiv.org/pdf/2605.06010">Paper</a></span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pub">
+          <div class="pub-fig"><img src="daep1.png" alt="DAE-Fuse" /></div>
+          <div class="pub-body">
+            <h3 class="pub-title">DAE-Fuse: An Adaptive Discriminative Autoencoder for Multi-Modality Image Fusion</h3>
+            <p class="pub-authors">
+              <span class="me">Yuchen Guo</span>*, Ruoxiang Xu*, Rongcheng Li, Weifeng Su
+            </p>
+            <div class="pub-meta">
+              <span class="pub-venue">ICME 2025</span>
+              <span class="pub-flag">Oral</span>
+              <span class="pub-links">
+                <a href="https://eurekaarrow.github.io/daefuse.github.io/">Project</a>
+                <a href="https://www.arxiv.org/pdf/2409.10080">Paper</a>
+              </span>
+            </div>
+          </div>
+        </article>
       </div>
-    </main>
 
-    <footer>
-      <div>© <span id="year"></span> Yuchen Guo</div>
-      <div>Static site hosted on GitHub Pages</div>
-    </footer>
-  </div>
+      <div class="pubgroup">
+        <div class="pubgroup-title">Preprints &amp; under review</div>
 
-  <br>
-  <br>
-  <br>
+        <article class="pub">
+          <div class="pub-fig"><img src="SegWorld.png" alt="SegWorld" /></div>
+          <div class="pub-body">
+            <h3 class="pub-title">Can Segmentation Models Understand the World? Towards Proactive Affordance Reasoning via Visual Chain-of-Thought</h3>
+            <p class="pub-authors">
+              <span class="me">Yuchen Guo</span>, Junli Gong, Hongmin Cai, Yiu-ming Cheung, Weifeng Su
+            </p>
+            <div class="pub-meta">
+              <span class="pub-venue">Under review</span>
+              <span class="pub-links"><a href="https://arxiv.org/pdf/2605.27764">Paper</a></span>
+            </div>
+          </div>
+        </article>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+        <article class="pub">
+          <div class="pub-fig"><img src="PEAM.png" alt="PEAM" /></div>
+          <div class="pub-body">
+            <h3 class="pub-title">PEAM: Parametric Embodied Agent Memory through Contrastive Internalization of Experience in Minecraft</h3>
+            <p class="pub-authors">
+              <span class="me">Yuchen Guo</span>, Junli Gong, Weicheng Wang, Hongmin Cai, Yiu-ming Cheung, Weifeng Su
+            </p>
+            <div class="pub-meta">
+              <span class="pub-venue">Under review</span>
+              <span class="pub-links"><a href="https://arxiv.org/pdf/2605.27762">Paper</a></span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pub">
+          <div class="pub-fig"><img src="FuScore.png" alt="FuScore" /></div>
+          <div class="pub-body">
+            <h3 class="pub-title">Bringing Multimodal Large Language Models to Infrared-Visible Image Fusion Quality Assessment</h3>
+            <p class="pub-authors">
+              <span class="me">Yuchen Guo</span>*, Junli Gong*, Yao Lu, Xintong Xu, Yiu-ming Cheung, Weifeng Su
+            </p>
+            <div class="pub-meta">
+              <span class="pub-venue">Preprint</span>
+              <span class="pub-links"><a href="https://arxiv.org/pdf/2605.06969">Paper</a></span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pub">
+          <div class="pub-fig"><img src="Lumi.png" alt="LumiVideo" /></div>
+          <div class="pub-body">
+            <h3 class="pub-title">LumiVideo: An Intelligent Agentic System for Video Color Grading</h3>
+            <p class="pub-authors">
+              <span class="me">Yuchen Guo</span>, Junli Gong, Hongmin Cai, Yiu-ming Cheung, Weifeng Su
+            </p>
+            <div class="pub-meta">
+              <span class="pub-venue">Preprint</span>
+              <span class="pub-links">
+                <a href="https://eurekaarrow.github.io/LumiVideo/">Project</a>
+                <a href="https://arxiv.org/pdf/2604.02409">Paper</a>
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pub">
+          <div class="pub-fig"><img src="seg1.png" alt="Fuse4Seg" /></div>
+          <div class="pub-body">
+            <h3 class="pub-title">Fuse4Seg: Image Fusion for Multi-Modal Medical Segmentation via Bi-level Optimization</h3>
+            <p class="pub-authors">
+              <span class="me">Yuchen Guo</span>, Junli Gong, Hongmin Cai, Yiu-ming Cheung, Weifeng Su
+            </p>
+            <div class="pub-meta">
+              <span class="pub-venue">Preprint</span>
+              <span class="pub-links"><a href="https://arxiv.org/pdf/2409.10328">Paper</a></span>
+            </div>
+          </div>
+        </article>
+
+        <p class="pub-foot">* denotes equal contribution.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════ CODA ══════ -->
+  <section class="band coda">
+    <div class="band-label"></div>
+    <div class="band-body">
+      <blockquote>
+        What I cannot create, I do not understand.
+        <cite>Richard Feynman</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>© <span id="y"></span> Yuchen Guo</span>
+    <span>Evanston, Illinois</span>
+  </footer>
+
+</div>
+
+<script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
