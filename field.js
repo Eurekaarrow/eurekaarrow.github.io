@@ -21,38 +21,39 @@
 
   /* ── domain ─────────────────────────────────────────────── */
   var X0 = -2.6, X1 = 3.4, Y0 = -4.0, Y1 = 4.0;
-  var COLS = 100, ROWS = 142, LEVELS = 17;
+  var COLS = 100, ROWS = 142, LEVELS = 24;
 
   var W = 0, H = 0, dpr = 1;
   var vals = new Float32Array(COLS * ROWS);
   var levels = [];
 
   /* ── the surface ────────────────────────────────────────── */
-  /* a wide bowl, three basins of unequal depth, and a low ripple */
-  /* Everything lives in the right half of the domain: the container is
-     masked from the right, so anything left of x ~ 0.4 is invisible.     */
-  var BOWLX = 2.20, BOWLY = 0.00;
+  /* One minimum, its basin shaped by angular harmonics so the level sets
+     stay nested and organic instead of pinching into saddles, plus a single
+     shallow basin off to the side. Everything sits in the right half of the
+     domain, since the container is masked from the right.                  */
 
-  var BASIN = [
-    /*  cx     cy     sx    sy    depth */
-    [  2.55,  0.95, 1.05, 0.95, 1.35 ],   // global minimum — lower right
-    [  1.45, -1.75, 0.85, 0.80, 0.72 ],   // local, passed on the way down
-    [  3.05, -2.60, 0.75, 0.70, 0.45 ]    // shallow local
-  ];
+  var MX = 2.45, MY = 0.95, YSQ = 0.82;
 
-  var bx = 0, by = 0, bA = 0;             // cursor bump
+  var HARM = [ [2, 0.30, 1.1], [3, 0.17, 2.6], [5, 0.08, 4.9] ];
+  var SIDE = [ 1.00, -1.95, 1.00, 0.90, 0.40 ];   // cx cy sx sy depth
+
+  var bx = 0, by = 0, bA = 0;                     // cursor bump
 
   function loss(x, y) {
-    var dbx = x - BOWLX, dby = y - BOWLY;
-    var v = 0.16 * (dbx * dbx + 0.55 * dby * dby);
-    for (var i = 0; i < 3; i++) {
-      var b = BASIN[i], dx = x - b[0], dy = y - b[1];
-      v -= b[4] * Math.exp(-(dx * dx / (2 * b[2] * b[2]) + dy * dy / (2 * b[3] * b[3])));
-    }
-    v += 0.20 * Math.sin(1.55 * x) * Math.cos(1.22 * y);
+    var dx = x - MX, dy = (y - MY) * YSQ;
+    var r2 = dx * dx + dy * dy;
+    var th = Math.atan2(dy, dx);
+    var m = 1;
+    for (var i = 0; i < 3; i++) m += HARM[i][1] * Math.sin(HARM[i][0] * th + HARM[i][2]);
+    var v = 0.17 * r2 * m;
+
+    var ux = x - SIDE[0], uy = y - SIDE[1];
+    v -= SIDE[4] * Math.exp(-(ux * ux / (2 * SIDE[2] * SIDE[2]) + uy * uy / (2 * SIDE[3] * SIDE[3])));
+
     if (bA !== 0) {
-      var ux = x - bx, uy = y - by;
-      v += bA * Math.exp(-(ux * ux + uy * uy) / 1.45);
+      var px = x - bx, py = y - by;
+      v += bA * Math.exp(-(px * px + py * py) / 1.45);
     }
     return v;
   }
@@ -76,10 +77,10 @@
         if (v > hi) hi = v;
       }
     }
-    levels.length = 0;
-    for (var n = 0; n < LEVELS; n++) {
-      var t = (n + 0.5) / LEVELS;
-      levels.push(lo + (hi - lo) * Math.pow(t, 1.75));   // denser near the minima
+    if (levels.length === 0) {
+      for (var n = 0; n < LEVELS; n++) {
+        levels.push(lo + (hi - lo) * Math.pow((n + 0.5) / LEVELS, 1.85));  // denser near the minimum
+      }
     }
   }
 
@@ -119,53 +120,41 @@
     }
   }
 
-  /* ── momentum SGD ───────────────────────────────────────── */
-  /* The raw run converges long before it runs out of iterations, so the
-     path is resampled by arc length: scroll progress then tracks distance
-     travelled, not iteration count, and the head moves at a constant pace
-     all the way to the bottom of the page.                              */
+  /* ── momentum SGD with a cosine schedule ────────────────── */
+  /* The decaying step size is what makes it settle instead of orbiting the
+     minimum forever, so the tail carries almost no arc length. The path is
+     then resampled by distance travelled, which is what scroll progress
+     tracks — the head keeps moving all the way down the page.             */
 
-  var STEPS = 330;                       // render points, evenly spaced by distance
-  var RAW   = 2400;                      // raw integration steps
-  var path  = new Float32Array(STEPS * 2);
-  var rawX  = new Float64Array(RAW);
-  var rawY  = new Float64Array(RAW);
-  var cum   = new Float64Array(RAW);
-  var g     = [0, 0];
+  var STEPS = 330;                        // render points, evenly spaced by distance
+  var RAW   = 220;                        // raw integration steps
+  var WARM  = 110;                        // steps over which the step size decays to zero
+  var LR0   = 0.050, MOM = 0.885;
+
+  var path = new Float32Array(STEPS * 2);
+  var rawX = new Float64Array(RAW);
+  var rawY = new Float64Array(RAW);
+  var cum  = new Float64Array(RAW);
+  var g    = [0, 0];
 
   function descend() {
-    var x = 0.85, y = -3.60, vx = 0, vy = 0, n = 0, still = 0, s;
+    var x = 1.20, y = -3.45, vx = 0, vy = 0, s;
 
     for (s = 0; s < RAW; s++) {
-      rawX[n] = x; rawY[n] = y; n++;
+      rawX[s] = x; rawY[s] = y;
+      var lr = LR0 * 0.5 * (1 + Math.cos(Math.PI * Math.min(1, s / WARM)));
       grad(x, y, g);
-      vx = 0.885 * vx - 0.038 * g[0];
-      vy = 0.885 * vy - 0.038 * g[1];
+      vx = MOM * vx - lr * g[0];
+      vy = MOM * vy - lr * g[1];
       x += vx; y += vy;
-      if (Math.abs(vx) + Math.abs(vy) < 0.0018) { if (++still > 30) break; }
-      else still = 0;
     }
-
-    if (n < 2) { path[0] = x; path[1] = y; for (var q = 1; q < STEPS; q++) { path[q*2] = x; path[q*2+1] = y; } return; }
-
-    /* Momentum makes it orbit the minimum for a long time. Those orbits carry
-       real arc length but no visible movement, so they would swallow a third
-       of the scroll. Cut back to the last point that is still meaningfully
-       away from where it comes to rest.                                     */
-    var ex = rawX[n-1], ey = rawY[n-1], TAIL = 0.22;
-    while (n > 3) {
-      var qx = rawX[n-1] - ex, qy = rawY[n-1] - ey;
-      if (qx * qx + qy * qy >= TAIL * TAIL) break;
-      n--;
-    }
-    n = Math.min(n + 1, RAW);
 
     cum[0] = 0;
-    for (s = 1; s < n; s++) {
+    for (s = 1; s < RAW; s++) {
       var dx = rawX[s] - rawX[s-1], dy = rawY[s] - rawY[s-1];
       cum[s] = cum[s-1] + Math.sqrt(dx * dx + dy * dy);
     }
-    var total = cum[n-1];
+    var total = cum[RAW-1];
 
     if (total < 1e-6) {
       for (var r = 0; r < STEPS; r++) { path[r*2] = rawX[0]; path[r*2+1] = rawY[0]; }
@@ -175,7 +164,7 @@
     var step = total / (STEPS - 1), j = 0;
     for (var k = 0; k < STEPS; k++) {
       var target = step * k;
-      while (j < n - 2 && cum[j + 1] < target) j++;
+      while (j < RAW - 2 && cum[j + 1] < target) j++;
       var seg = cum[j + 1] - cum[j];
       var f = seg > 1e-9 ? (target - cum[j]) / seg : 0;
       path[k*2]     = rawX[j] + (rawX[j+1] - rawX[j]) * f;
