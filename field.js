@@ -33,10 +33,13 @@
      shallow basin off to the side. Everything sits in the right half of the
      domain, since the container is masked from the right.                  */
 
-  var MX = 2.45, MY = 0.95, YSQ = 0.90;
+  var MX = 2.45, MY = 0.95, YSQ = 0.72;
 
-  var HARM = [ [2, 0.150, 1.1], [3, 0.085, 2.6], [5, 0.038, 4.9] ];
-  var SIDE = [ 1.00, -1.95, 1.00, 0.90, 0.26 ];   // cx cy sx sy depth
+  /* the first-order term is what makes the level sets egg-shaped rather
+     than elliptical: broad at the top, tapering below, flattening into
+     near-parallel lines out on the left flank                          */
+  var HARM = [ [1, 0.200, 1.5], [2, 0.140, 1.1], [3, 0.075, 2.6], [5, 0.032, 4.9] ];
+  var SIDE = [ 1.00, -1.95, 1.00, 0.90, 0.24 ];   // cx cy sx sy depth
 
   var bx = 0, by = 0, bA = 0;                     // cursor bump
 
@@ -45,7 +48,7 @@
     var r2 = dx * dx + dy * dy;
     var th = Math.atan2(dy, dx);
     var m = 1;
-    for (var i = 0; i < 3; i++) m += HARM[i][1] * Math.sin(HARM[i][0] * th + HARM[i][2]);
+    for (var i = 0; i < HARM.length; i++) m += HARM[i][1] * Math.sin(HARM[i][0] * th + HARM[i][2]);
     var v = 0.17 * r2 * m;
 
     var ux = x - SIDE[0], uy = y - SIDE[1];
@@ -129,7 +132,7 @@
   var STEPS = 330;                        // render points, evenly spaced by distance
   var RAW   = 220;                        // raw integration steps
   var WARM  = 110;                        // steps over which the step size decays to zero
-  var LR0   = 0.050, MOM = 0.885;
+  var LR0   = 0.058, MOM = 0.885;
 
   var path = new Float32Array(STEPS * 2);
   var rawX = new Float64Array(RAW);
@@ -138,7 +141,7 @@
   var g    = [0, 0];
 
   function descend() {
-    var x = 1.20, y = -3.45, vx = 0, vy = 0, s;
+    var x = 1.10, y = -3.55, vx = 0, vy = 0, s;
 
     for (s = 0; s < RAW; s++) {
       rawX[s] = x; rawY[s] = y;
