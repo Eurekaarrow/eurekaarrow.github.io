@@ -31,13 +31,13 @@
   /* a wide bowl, three basins of unequal depth, and a low ripple */
   /* Everything lives in the right half of the domain: the container is
      masked from the right, so anything left of x ~ 0.4 is invisible.     */
-  var BOWLX = 1.80, BOWLY = 0.00;
+  var BOWLX = 2.20, BOWLY = 0.00;
 
   var BASIN = [
     /*  cx     cy     sx    sy    depth */
-    [  1.60, -0.90, 1.05, 0.95, 1.35 ],   // global minimum
-    [  2.40,  1.90, 0.85, 0.80, 0.72 ],   // local, passed on the way down
-    [  2.90, -2.70, 0.75, 0.70, 0.50 ]    // shallow local
+    [  2.55,  0.95, 1.05, 0.95, 1.35 ],   // global minimum — lower right
+    [  1.45, -1.75, 0.85, 0.80, 0.72 ],   // local, passed on the way down
+    [  3.05, -2.60, 0.75, 0.70, 0.45 ]    // shallow local
   ];
 
   var bx = 0, by = 0, bA = 0;             // cursor bump
@@ -134,7 +134,7 @@
   var g     = [0, 0];
 
   function descend() {
-    var x = 0.75, y = 3.50, vx = 0, vy = 0, n = 0, still = 0, s;
+    var x = 0.85, y = -3.60, vx = 0, vy = 0, n = 0, still = 0, s;
 
     for (s = 0; s < RAW; s++) {
       rawX[n] = x; rawY[n] = y; n++;
@@ -147,6 +147,18 @@
     }
 
     if (n < 2) { path[0] = x; path[1] = y; for (var q = 1; q < STEPS; q++) { path[q*2] = x; path[q*2+1] = y; } return; }
+
+    /* Momentum makes it orbit the minimum for a long time. Those orbits carry
+       real arc length but no visible movement, so they would swallow a third
+       of the scroll. Cut back to the last point that is still meaningfully
+       away from where it comes to rest.                                     */
+    var ex = rawX[n-1], ey = rawY[n-1], TAIL = 0.22;
+    while (n > 3) {
+      var qx = rawX[n-1] - ex, qy = rawY[n-1] - ey;
+      if (qx * qx + qy * qy >= TAIL * TAIL) break;
+      n--;
+    }
+    n = Math.min(n + 1, RAW);
 
     cum[0] = 0;
     for (s = 1; s < n; s++) {
