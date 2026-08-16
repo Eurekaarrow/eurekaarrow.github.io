@@ -124,7 +124,10 @@ a:hover{ color:var(--purple-mid) }
   transition:color .18s ease, border-color .18s ease;
 }
 .contact a:hover{ color:var(--purple); border-bottom-color:var(--purple-mid) }
-.contact a[aria-current]{ color:var(--purple); border-bottom-color:var(--purple-mid) }
+.contact a[aria-current]{
+  color:var(--purple);
+  border-bottom-color:var(--purple-mid);
+}
 
 /* ═══════════════ bands ═══════════════ */
 
