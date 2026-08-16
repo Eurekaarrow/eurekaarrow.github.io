@@ -26,17 +26,15 @@
     <div>
       <h1 class="name">Yuchen Guo</h1>
       <p class="affil">
-        MS in Artificial Intelligence<br />
-        <span class="school">Northwestern University</span>
+        <span class="school">Northwestern University</span><br />
+        📧 Email: yuchenguo2027@u.northwestern.edu
       </p>
       <nav class="contact">
         <a href="index.html">Home</a>
-        <a href="mailto:yuchenguo2027@u.northwestern.edu">Email</a>
-        <a href="#">Google Scholar</a>
-        <a href="#">CV</a>
-        <a href="#">GitHub</a>
+        <a href="https://scholar.google.com/citations?user=2wsaCVoAAAAJ&hl">Google Scholar</a>
+        <a href="https://www.linkedin.com/in/yuchenguonu/">LinkdIn</a>
         <a href="blog.html">Blog</a>
-        <a href="photos.html" aria-current="page">Photos</a>
+        <a href="photos.html">Photos</a>
       </nav>
     </div>
   </header>
@@ -60,28 +58,28 @@
 
         <!-- ── replace src / caption; add or remove <figure> blocks freely ── -->
         <figure class="shot">
-          <img src="photos/01.jpg" alt="" loading="lazy" />
-          <figcaption>Place · Year</figcaption>
+          <img src="photos/Oxford/1.jpg" alt="Oxford" loading="lazy" />
+          <figcaption>Oxford · Summer Visit</figcaption>
         </figure>
+        
         <figure class="shot">
-          <img src="photos/02.jpg" alt="" loading="lazy" />
-          <figcaption>Place · Year</figcaption>
+          <img src="photos/Sequoia/1.jpg" alt="Sequoia National Park" loading="lazy" />
+          <figcaption>Sequoia · National Park</figcaption>
         </figure>
+        
         <figure class="shot">
-          <img src="photos/03.jpg" alt="" loading="lazy" />
-          <figcaption>Place · Year</figcaption>
+          <img src="photos/Shenzhen/1.jpg" alt="Shenzhen" loading="lazy" />
+          <figcaption>Shenzhen · SIAT MMLab</figcaption>
         </figure>
+        
         <figure class="shot">
-          <img src="photos/04.jpg" alt="" loading="lazy" />
-          <figcaption>Place · Year</figcaption>
+          <img src="photos/Zhuhai/1.jpg" alt="Zhuhai" loading="lazy" />
+          <figcaption>Zhuhai · BNBU</figcaption>
         </figure>
+        
         <figure class="shot">
-          <img src="photos/05.jpg" alt="" loading="lazy" />
-          <figcaption>Place · Year</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="photos/06.jpg" alt="" loading="lazy" />
-          <figcaption>Place · Year</figcaption>
+          <img src="photos/Zhuhai/2.jpg" alt="Zhuhai" loading="lazy" />
+          <figcaption>Zhuhai · BNBU</figcaption>
         </figure>
 
       </div>
@@ -102,13 +100,25 @@ if (yEl) yEl.textContent = new Date().getFullYear();
 
 /* ── EDIT ME ── one line per place. [lat, lng, name, note] ─────────── */
 var PLACES = [
-  [42.0451,  -87.6877, "Evanston",   "Northwestern"],
-  [22.2783,  114.1747, "Hong Kong",  ""],
-  [22.2710,  113.5767, "Zhuhai",     "UIC"],
-  [22.5931,  113.9761, "Shenzhen",   "SIAT"],
-  [40.0000,  116.3264, "Beijing",    "Tsinghua AIR"],
-  [51.7548,   -1.2544, "Oxford",     "Summer visit"],
-  [47.4979,   19.0402, "Budapest",   "EMNLP 2026"]
+  [42.0451,  -87.6877, "Evanston",    "Northwestern"],
+  [22.2783,  114.1747, "Hong Kong",   "HKBU"],
+  [22.2710,  113.5767, "Zhuhai",      "BNBU"],
+  [22.5931,  113.9761, "Shenzhen",    "SIAT MMLab"],
+  [31.4912,  120.3119, "Wuxi",        "Tsinghua AIR"],
+  [51.7548,   -1.2544, "Oxford",      "Summer visit"],
+  [47.4979,   19.0402, "Budapest",    "EMNLP 2026"],
+  [32.7157, -117.1611, "San Diego",   "ACL 2026"],
+  [47.2184,   -1.5536, "Nantes",      "ICME 2025"],
+
+  [47.6062, -122.3321, "Seattle",     "Skiing & Sakura"],
+  [5.8917,  115.8400,  "Semporna",    "Diving"],
+  [47.3769,  8.5417,  "Zurich",      "Einstein's Bookshelf"],
+  [34.0522, -118.2437, "Los Angeles", "Lakers Christmas & David Tao"],
+  [37.7749, -122.4194, "San Francisco","Silicon Valley"],
+
+  [36.4864, -118.5658, "Sequoia",     "National Park"],
+  [36.5323, -116.9325, "Death Valley","National Park"],
+  [33.8734, -115.9010, "Joshua Tree", "National Park"]
 ];
 /* ──────────────────────────────────────────────────────────────────── */
 
