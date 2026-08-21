@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="site.css" />
+<link rel="stylesheet" href="site.css?v=6" />
 </head>
 
 <body>
@@ -29,20 +29,12 @@
       <h1 class="name">Yuchen Guo</h1>
       <p class="affil">
         <span class="school">Northwestern University</span><br />
-        📧 Email: yuchenguo2027@u.northwestern.edu
+        <a href="mailto:yuchenguo2027@u.northwestern.edu">yuchenguo2027@u.northwestern.edu</a>
       </p>
       <nav class="contact">
         <a href="index.html" aria-current="page">Home</a>
-        <a href="https://scholar.google.com/citations?user=2wsaCVoAAAAJ&hl"
-           target="_blank"
-           rel="noopener noreferrer">
-          Google Scholar
-        </a>
-        <a href="https://www.linkedin.com/in/yuchenguonu/"
-           target="_blank"
-           rel="noopener noreferrer">
-          LinkedIn
-        </a>
+        <a href="https://scholar.google.com/citations?user=2wsaCVoAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+        <a href="https://www.linkedin.com/in/yuchenguonu/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="blog.html">Blog</a>
         <a href="photos.html">Photos</a>
       </nav>
@@ -71,14 +63,16 @@
       <p>
         I also work closely with
         <a href="https://scholar.google.com/citations?user=G4uCKHcAAAAJ&amp;hl=en">Dr. Wei Ji</a>
-        at Yale & Tencent, <a href="https://jimmyzou.github.io/">Dr. Shihao Zou</a> at SIAT, <a href="https://scholar.google.com/citations?user=1QYsOAUAAAAJ&hl=en&oi=ao">Dr. Jingjing Li</a> at CMU and <a href="https://staff.uic.edu.cn/wfsu/en">Prof. Weifeng Su</a> at BNBU.
+        at Yale &amp; Tencent, <a href="https://jimmyzou.github.io/">Dr. Shihao Zou</a> at SIAT,
+        <a href="https://scholar.google.com/citations?user=1QYsOAUAAAAJ&amp;hl=en">Dr. Jingjing Li</a> at CMU, and
+        <a href="https://staff.uic.edu.cn/wfsu/en">Prof. Weifeng Su</a> at BNBU.
       </p>
     </div>
   </section>
 
   <!-- ══════ RESEARCH INTERESTS ══════ -->
   <section class="band">
-    <div class="band-label">Research</br>Interest</div>
+    <div class="band-label">Research<br />Interest</div>
     <div class="band-body">
 
       <p class="statement">
@@ -147,11 +141,41 @@
 
   <!-- ══════ PUBLICATIONS ══════ -->
   <section class="band">
-    <div class="band-label">Selected Publications</div>
+    <div class="band-label">Selected<br />Publications</div>
     <div class="band-body">
 
       <div class="pubgroup">
         <div class="pubgroup-title">Peer-reviewed</div>
+
+        <article class="pub">
+          <div class="pub-fig"><img src="SegWorld.png" alt="SegWorld" /></div>
+          <div class="pub-body">
+            <h3 class="pub-title">Can Segmentation Models Understand the World? Towards Proactive Affordance Reasoning via Visual Chain-of-Thought</h3>
+            <p class="pub-authors">
+              <span class="me">Yuchen Guo</span>, Junli Gong, Hongmin Cai, Yiu-ming Cheung, Weifeng Su
+            </p>
+            <div class="pub-meta">
+              <span class="pub-venue">Empirical Methods in Natural Language Processing (EMNLP), 2026</span>
+              <span>Main Conference</span>
+              <span class="pub-links"><a href="https://arxiv.org/pdf/2605.27764">Paper</a></span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pub">
+          <div class="pub-fig"><img src="PEAM.png" alt="PEAM" /></div>
+          <div class="pub-body">
+            <h3 class="pub-title">PEAM: Parametric Embodied Agent Memory through Contrastive Internalization of Experience in Minecraft</h3>
+            <p class="pub-authors">
+              <span class="me">Yuchen Guo</span>, Junli Gong, Weicheng Wang, Hongmin Cai, Yiu-ming Cheung, Weifeng Su
+            </p>
+            <div class="pub-meta">
+              <span class="pub-venue">Empirical Methods in Natural Language Processing (EMNLP), 2026</span>
+              <span>Findings</span>
+              <span class="pub-links"><a href="https://arxiv.org/pdf/2605.27762">Paper</a></span>
+            </div>
+          </div>
+        </article>
 
         <article class="pub">
           <div class="pub-fig"><img src="sam3-I.png" alt="SAM3-I" /></div>
@@ -168,7 +192,7 @@
             </div>
           </div>
         </article>
-
+        
         <article class="pub">
           <div class="pub-fig"><img src="fusionproxy.png" alt="FusionProxy" /></div>
           <div class="pub-body">
@@ -177,9 +201,25 @@
               <span class="me">Yuchen Guo</span>, Junli Gong, Wenjun Dong, Yiu-ming Cheung, Weifeng Su
             </p>
             <div class="pub-meta">
-              <span class="pub-venue">Computer Vision and Pattern Recognition (CVPR Workshop), 2026</span></br>
+              <span class="pub-venue">Computer Vision and Pattern Recognition (CVPR Workshop), 2026</span>
               <span>World Models Meet Active Sensing and Closed-Loop Planning</span>
               <span class="pub-links"><a href="https://arxiv.org/pdf/2605.06010">Paper</a></span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pub">
+          <div class="pub-fig"><img src="surg.png" alt="Surgical scene understanding" /></div>
+          <div class="pub-body">
+            <h3 class="pub-title">Towards Unified Surgical Scene Understanding: Bridging Reasoning and Grounding via MLLMs</h3>
+            <p class="pub-authors">
+              Jincai Huang*, Shihao Zou*, <span class="me">Yuchen Guo</span>, Jingjing Li, Wei Ji,
+              Kai Wang, Shanshan Wang, Weixin Si
+            </p>
+            <div class="pub-meta">
+              <span class="pub-venue">Medical Image Computing and Computer Assisted Intervention (MICCAI), 2026</span>
+              <span class="pub-flag">Early Accept</span>
+              <span class="pub-links"><a href="https://arxiv.org/pdf/2605.13530">Paper</a></span>
             </div>
           </div>
         </article>
@@ -203,63 +243,19 @@
         </article>
       </div>
 
-      <article class="pub">
-          <div class="pub-fig"><img src="surg.png" alt="Surgical scene understanding" /></div>
-          <div class="pub-body">
-            <h3 class="pub-title">Towards Unified Surgical Scene Understanding: Bridging Reasoning and Grounding via MLLMs</h3>
-            <p class="pub-authors">
-              Jincai Huang*, Shihao Zou*, <span class="me">Yuchen Guo</span>, Jingjing Li, Wei Ji,
-              Kai Wang, Shanshan Wang, Weixin Si
-            </p>
-            <div class="pub-meta">
-              <span class="pub-venue">Medical Image Computing and Computer Assisted Intervention (MICCAI), 2026</span>
-              <span class="pub-flag">Early Accept</span>
-              <span class="pub-links"><a href="https://arxiv.org/pdf/2605.13530">Paper</a></span>
-            </div>
-          </div>
-        </article>
-
       <div class="pubgroup">
         <div class="pubgroup-title">Preprints &amp; under review</div>
 
         <article class="pub">
-          <div class="pub-fig"><img src="SegWorld.png" alt="SegWorld" /></div>
-          <div class="pub-body">
-            <h3 class="pub-title">Can Segmentation Models Understand the World? Towards Proactive Affordance Reasoning via Visual Chain-of-Thought</h3>
-            <p class="pub-authors">
-              <span class="me">Yuchen Guo</span>, Junli Gong, Hongmin Cai, Yiu-ming Cheung, Weifeng Su
-            </p>
-            <div class="pub-meta">
-              <span class="pub-venue">Preprint</span>
-              <span class="pub-links"><a href="https://arxiv.org/pdf/2605.27764">Paper</a></span>
-            </div>
-          </div>
-        </article>
-
-        <article class="pub">
-          <div class="pub-fig"><img src="PEAM.png" alt="PEAM" /></div>
-          <div class="pub-body">
-            <h3 class="pub-title">PEAM: Parametric Embodied Agent Memory through Contrastive Internalization of Experience in Minecraft</h3>
-            <p class="pub-authors">
-              <span class="me">Yuchen Guo</span>, Junli Gong, Weicheng Wang, Hongmin Cai, Yiu-ming Cheung, Weifeng Su
-            </p>
-            <div class="pub-meta">
-              <span class="pub-venue">Preprint</span>
-              <span class="pub-links"><a href="https://arxiv.org/pdf/2605.27762">Paper</a></span>
-            </div>
-          </div>
-        </article>
-
-      <article class="pub">
-          <div class="pub-fig"><img src="SurgEff.png" alt="Surgical scene understanding" /></div>
+          <div class="pub-fig"><img src="SurgEff.png" alt="Surgical token compression" /></div>
           <div class="pub-body">
             <h3 class="pub-title">Accelerating Reasoning and Grounding for Surgical Intelligence via Multi-Granular Token Compression</h3>
             <p class="pub-authors">
-              Weixin Si, Jincai Huang, Jingjing Li, Wei Ji, Hoayuan Zheng, <span class="me">Yuchen Guo</span>, 
+              Weixin Si, Jincai Huang, Jingjing Li, Wei Ji, Hoayuan Zheng, <span class="me">Yuchen Guo</span>,
               Kai Wang, Shihao Zou, Yang Gao, Shanshan Wang
             </p>
             <div class="pub-meta">
-              <span class="pub-venue">Under Review in IEEE Transactions on Medical Imaging (TMI)</span>
+              <span class="pub-venue">Under review, IEEE Transactions on Medical Imaging (TMI)</span>
             </div>
           </div>
         </article>
@@ -345,10 +341,7 @@ if (yEl) yEl.textContent = new Date().getFullYear();
   addEventListener('load',   ping);
   light();
 })();
-
-/* isotherm field drifts slowly toward the cursor */
-
 </script>
-<script src="field.js"></script>
+<script src="field.js?v=6"></script>
 </body>
 </html>
