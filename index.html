@@ -315,6 +315,18 @@
 </div>
 
 <script>
+/* Match publication titles and venues to each publication's author font. */
+(function () {
+  document.querySelectorAll('.pub-body').forEach(function (publication) {
+    var authors = publication.querySelector('.pub-authors');
+    if (!authors) return;
+    var authorFont = window.getComputedStyle(authors).fontFamily;
+    publication.querySelectorAll('.pub-title, .pub-venue').forEach(function (element) {
+      element.style.fontFamily = authorFont;
+    });
+  });
+})();
+
 var yEl = document.getElementById('y');
 if (yEl) yEl.textContent = new Date().getFullYear();
 
