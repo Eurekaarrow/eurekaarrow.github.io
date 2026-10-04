@@ -172,9 +172,10 @@ a:hover{ color:var(--purple-mid) }
   color:var(--ink); max-width:56ch;
 }
 .statement em{ font-style:italic; color:var(--purple) }
-.band--research .statement em{ font-style:normal; font-weight:500 }
+.band--research .statement-sub em{ font-style:italic; color:var(--purple); font-weight:400 }
 
 .statement-sub{ margin-top:14px; max-width:62ch; font-size:15.5px; color:var(--ink-soft) }
+.band--research .statement-sub{ font-family:var(--sans); font-size:16px; font-weight:400; line-height:1.65; max-width:64ch }
 
 .keys{
   margin:22px 0 38px;
